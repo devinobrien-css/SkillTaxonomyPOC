@@ -1,4 +1,5 @@
 import { SubTitle, TitleLg, TitleMd } from "./components/component.library";
+import { Addbutton } from "./components/custom.library";
 
 const App = () => {
   return (
@@ -24,11 +25,20 @@ const App = () => {
               <p>0 skills in this category</p>
             </div>
           </div>
-          <div className="w-1/2 p-4">
-            <TitleMd>Sub-Categories</TitleMd>
-            <SubTitle>All decendants of this category</SubTitle>
+          <div className="w-1/2 p-4 rounded bg-white">
+            <TitleMd>DBMS</TitleMd>
             <br/>
 
+            <TitleMd>Sub-Categories</TitleMd>
+            <SubTitle>All decendants of this category</SubTitle>
+            <Addbutton />
+            <br/>
+
+            <TitleMd>Skills Attached</TitleMd>
+            <SubTitle>All skills in this category</SubTitle>
+            <Addbutton />
+            <br/>
+            
             <TitleMd>Sibling-Categories</TitleMd>
             <SubTitle>All categories related by parent to this category</SubTitle>
             <br/>
@@ -37,9 +47,6 @@ const App = () => {
             <SubTitle>All categories related by grandparent to this category</SubTitle>
             <br/>
 
-            <TitleMd>Skills Attached</TitleMd>
-            <SubTitle>All skills in this category</SubTitle>
-            <br/>
 
             <TitleMd>Users Attached</TitleMd>
             <SubTitle>All users with skills in this category</SubTitle>
@@ -47,7 +54,6 @@ const App = () => {
 
             <TitleMd>Users in sub-categories</TitleMd>
             <SubTitle>All users with skills related to this category</SubTitle>
-
 
           </div>
         </div>

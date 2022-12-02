@@ -1,4 +1,15 @@
+import { Icon } from '@iconify/react';
 
+
+export const Addbutton = ({children,...rest}) => {
+
+    return (
+        <div className={`text-font-dark group flex relative w-min cursor-pointer`} {...rest}>
+            <Icon icon={"material-symbols:add-box-outline-rounded"} width={40} />
+            <p className={`w-0 overflow-hidden group-hover:w-max group-hover:p-1 rounded transition-all absolute left-full top-1 p-0 shadow`}>Add</p>
+        </div>
+    )
+}
 
 
 
