@@ -7,14 +7,14 @@ import { tempCategoryData, tempSkillsData } from "./data";
 import { Icon } from '@iconify/react';
 
 const App = () => {
-
   const [navToggle,setNavToggle] = useState("categories")
   const [selected,setSelected] = useState()
-
   const [search,setSearch] = useState("")
 
+  
+
   return (
-    <div className="bg-bg_lightgray h-screen">
+    <div className="bg-bg_lightgray h-screen relative">
       <div className="p-4">
         <TitleLg>Skill Taxonomy Example</TitleLg>
 
@@ -44,13 +44,13 @@ const App = () => {
             <div className="h-[80vh] overflow-y-scroll">
               {navToggle==="skills"?(
                   tempSkillsData
-                  .filter(skill => {return skill.name.includes(search)})
+                  .filter(skill => {return skill.name.toLowerCase().includes(search.toLowerCase())})
                   .map((skill,index) => {
                     return <SkillCardMd skill={skill} key={index} onClick={() => setSelected(skill)}/>
                   })
               ):(
                 tempCategoryData
-                .filter(category => {return category.name.includes(search)})
+                .filter(category => {return category.name.toLowerCase().includes(search.toLowerCase())})
                 .map((category,index) => {
                   return <CategoryCardMd category={category} key={index} onClick={() => setSelected(category)}/>
                 })
