@@ -1,3 +1,4 @@
+
 import { Icon } from '@iconify/react';
 
 
@@ -19,6 +20,13 @@ export const SkillCardSm = ({skill,className,...rest}) => {
         </div>
     )
 }
+export const SkillCardMd = ({skill,className,...rest}) => {
+    return (
+        <div className={`bg-white p-2 rounded my-2 cursor-pointer border ${className}`} {...rest}>
+            <p className="uppercase text-2xl text-font-dark hover:shadow-3xl shadow-gray-900">{skill.name}</p>
+        </div>
+    )
+}
 
 
 export const CategoryCardSm = ({category,className,...rest}) => {
@@ -32,8 +40,8 @@ export const CategoryCardMd = ({category,className,...rest}) => {
     return (
         <div className={`bg-white p-2 rounded my-2 cursor-pointer ${className}`} {...rest}>
             <p className="uppercase text-2xl text-font-dark hover:shadow-3xl shadow-gray-900">{category.name}</p>
-            <p>3 sub-categories in this category</p>
-            <p>35 skills in this category</p>
+            <p>{category.childCategories.length} sub-categories in this category</p>
+            <p>{category.childSkills.length} skills in this category</p>
         </div>
     )
 }

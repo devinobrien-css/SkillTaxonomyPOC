@@ -3,7 +3,6 @@ import { Addbutton, CategoryCardSm, SkillCardSm } from "./custom.library"
 
 
 export const ExploreCategory = ({category}) => {
-    console.log(category)
     return (
         <>
             <TitleMd>{category.name}</TitleMd>
