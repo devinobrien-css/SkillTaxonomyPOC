@@ -1,6 +1,18 @@
+import { useState } from "react";
 import { SubTitle, TitleLg, TitleMd } from "./components/component.library";
+import { Addbutton, CategoryCardMd, SkillCardMd } from "./components/custom.library";
+import { ExploreCategory } from "./components/exploreCategory.component";
+import { ExploreSkill } from "./components/exploreSkill.component";
+import { tempCategoryData, tempSkillsData } from "./data";
+import { Icon } from '@iconify/react';
 
 const App = () => {
+
+  const [navToggle,setNavToggle] = useState("categories")
+  const [selected,setSelected] = useState()
+
+  const [search,setSearch] = useState("")
+
   return (
     <div className="bg-bg_lightgray h-screen">
       <div className="p-4">
@@ -8,48 +20,58 @@ const App = () => {
 
         <div className="flex mt-8">
           <div className="flex flex-col w-1/6">
-            <button className="text-left p-2 my-2">
-              skills
+            <button 
+              className={`flex text-left text-xl p-2 my-2 rounded font-bold ${navToggle==="categories"?"bg-gray-300":""}`} 
+              onClick={() => {
+                setSelected()
+                setNavToggle("categories")
+              }}>
+              <Icon icon={'carbon:category'} className="my-auto mr-2" width={30}/>categories
             </button>
-            <button className="text-left p-2 my-2">
-              categories
+            <button 
+              className={`flex text-left text-xl p-2 my-2 rounded font-bold ${navToggle==="skills"?"bg-gray-300":""}`} 
+              onClick={() => {
+                setSelected()
+                setNavToggle("skills")
+              }}>
+              <Icon icon={'ic:outline-assessment'} className="my-auto mr-2" width={30}/>skills
             </button>
           </div>
-          <div className=" p-4 w-1/4">
-            
-
-            <div className="bg-white p-2 rounded my-2">
-              <p className="uppercase text-2xl text-font-dark hover:shadow-3xl shadow-gray-900">DBMS</p>
-              <p>5 sub-categories in this category</p>
-              <p>0 skills in this category</p>
+          <div className="relative p-4 w-1/4">
+            <div className="w-full">
+              <input className="w-full rounded p-4" placeholder="Search..." onChange={(e) => setSearch(e.target.value)}/>
             </div>
-          </div>
-          <div className="w-1/2 p-4">
-            <TitleMd>Sub-Categories</TitleMd>
-            <SubTitle>All decendants of this category</SubTitle>
-            <br/>
-
-            <TitleMd>Sibling-Categories</TitleMd>
-            <SubTitle>All categories related by parent to this category</SubTitle>
-            <br/>
-
-            <TitleMd>Cousin-Categories</TitleMd>
-            <SubTitle>All categories related by grandparent to this category</SubTitle>
-            <br/>
-
-            <TitleMd>Skills Attached</TitleMd>
-            <SubTitle>All skills in this category</SubTitle>
-            <br/>
-
-            <TitleMd>Users Attached</TitleMd>
-            <SubTitle>All users with skills in this category</SubTitle>
-            <br/>
-
-            <TitleMd>Users in sub-categories</TitleMd>
-            <SubTitle>All users with skills related to this category</SubTitle>
-
+            <div className="h-[80vh] overflow-y-scroll">
+              {navToggle==="skills"?(
+                  tempSkillsData
+                  .filter(skill => {return skill.name.includes(search)})
+                  .map((skill,index) => {
+                    return <SkillCardMd skill={skill} key={index} onClick={() => setSelected(skill)}/>
+                  })
+              ):(
+                tempCategoryData
+                .filter(category => {return category.name.includes(search)})
+                .map((category,index) => {
+                  return <CategoryCardMd category={category} key={index} onClick={() => setSelected(category)}/>
+                })
+              )}
+            </div>
 
           </div>
+          
+            {selected?(
+              navToggle==="skills"?(
+                <div className="w-1/2 p-4 rounded bg-white">
+                  <ExploreSkill skill={selected} />
+                </div>
+              ):(
+                <div className="w-1/2 p-4 rounded bg-white">
+                  <ExploreCategory category={selected}/>
+                </div>
+              )
+            ):(
+              <></>
+            )}
         </div>
       </div>
     </div>
