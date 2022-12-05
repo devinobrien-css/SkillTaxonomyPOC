@@ -65,7 +65,7 @@ const typeDefs = gql`
 `
 
 const driver = neo4j.driver(
-    "neo4j://localhost:7687",
+    "bolt://localhost:11007",
     neo4j.auth.basic("neo4j", "1234")
 )
 

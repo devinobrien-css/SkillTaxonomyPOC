@@ -5,14 +5,19 @@ import { ExploreCategory } from "./components/exploreCategory.component";
 import { ExploreSkill } from "./components/exploreSkill.component";
 import { tempCategoryData, tempSkillsData } from "./data";
 import { Icon } from '@iconify/react';
+import { useQuery } from "@apollo/client";
+import { GetSkills } from "./apollo/skills.mjs";
+import { GetCategories } from "./apollo/categories.mjs";
 
 const App = () => {
   const [navToggle,setNavToggle] = useState("categories")
   const [selected,setSelected] = useState()
   const [search,setSearch] = useState("")
 
-  
+  const {data:skillsData} = useQuery(GetSkills)
+  const {data:categoriesData} = useQuery(GetCategories)
 
+  console.log(skillsData)
   return (
     <div className="bg-bg_lightgray h-screen relative">
       <div className="p-4">
@@ -43,13 +48,13 @@ const App = () => {
             </div>
             <div className="h-[80vh] overflow-y-scroll">
               {navToggle==="skills"?(
-                  tempSkillsData
+                  skillsData?.skills
                   .filter(skill => {return skill.name.toLowerCase().includes(search.toLowerCase())})
                   .map((skill,index) => {
                     return <SkillCardMd skill={skill} key={index} onClick={() => setSelected(skill)}/>
                   })
               ):(
-                tempCategoryData
+                categoriesData?.skillCategories
                 .filter(category => {return category.name.toLowerCase().includes(search.toLowerCase())})
                 .map((category,index) => {
                   return <CategoryCardMd category={category} key={index} onClick={() => setSelected(category)}/>

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ButtonMd, SearchSelect, SubTitle, TitleMd, TitleSm } from "./component.library"
+import { ButtonMd, Modal, SearchSelect, SubTitle, TitleMd, TitleSm } from "./component.library"
 import { Addbutton } from "./custom.library"
 import { Icon } from '@iconify/react';
 import { tempCategoryData } from "../data";
@@ -7,10 +7,9 @@ import { tempCategoryData } from "../data";
 
 
 
-const AddCategoryModal = ({skill}) => {
+export const AddCategoryModal = ({skill}) => {
     const [selectedCategory,setSelected] = useState()
 
-    console.log(selectedCategory)
     return (
         <div className="p-4">
             <TitleMd>Add a Parent to this Skill</TitleMd>
@@ -54,35 +53,25 @@ const AddCategoryModal = ({skill}) => {
     )
 }
 
-const modalStates = {
-    "add-parent":AddCategoryModal
-}
-
-
 export const ExploreSkill = ({skill}) => {
-    const [modal,setModal] = useState()
-    const ModalContent = modalStates[modal]
+    const [addCategoryModal,setAddCategoryModal] = useState()
 
     return (
         <>
-            {modal?(
-                <div className="z-50 absolute h-full w-full bg-gray-400 bg-opacity-70 shadow top-0 left-0 flex flex-col items-center">
-                    <div className="bg-white w-1/2 h-1/2 relative shadow-xl my-auto rounded">
-                        <Icon icon={"mdi:alpha-x-box-outline"} className="absolute top-1 right-1" width={40} onClick={()=>setModal()}/>
-                        <ModalContent skill={skill}/>
-                    </div>
-                </div>
-            ):(
-                <></>
-            )}
+            <Modal
+                display={addCategoryModal}
+                setDisplay={setAddCategoryModal}
+            >
+                {/* <AddCategoryModal skill={skill}/> */}
+            </Modal>
             <TitleMd>{skill.name}</TitleMd>
             <br/>
             
-            {/* <span className="text-font-dark">{skill.parentCategories.length}</span> */}
+            <span className="text-font-dark"></span>
             <TitleMd>Parent Categories </TitleMd>
             <SubTitle>All categories this skill appears in</SubTitle>
             <div className="flex [&>*]:my-auto [&>*]:mx-2 w-full overflow-x-scroll">
-                <Addbutton onClick={()=>setModal("add-parent")}/>
+                <Addbutton onClick={()=>setAddCategoryModal("add-parent")}/>
             </div>
 
             <TitleMd>Sibling-Skills</TitleMd>
