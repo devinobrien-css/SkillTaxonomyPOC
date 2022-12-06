@@ -50,6 +50,13 @@ const typeDefs = gql`
             MATCH (n:SkillCategory {name: $name})<-[:SUB_CLASS_OF]-(k)   
             RETURN {name: k.name, type: labels(k)[0]}
         """)
+
+        getCategorySiblings(name: String!): [SkillCategory!]! @cypher(statement: """
+            OPTIONAL MATCH (n:SkillCategory {name: $name})-[:SUB_CLASS_OF]->(p:SkillCategory)
+            MATCH (p)<-[:SUB_CLASS_OF]-(m:SkillCategory)
+            WHERE m.name <> $name
+            RETURN m
+        """)
     }
 
     type Mutation{
@@ -65,7 +72,7 @@ const typeDefs = gql`
 `
 
 const driver = neo4j.driver(
-    "bolt://localhost:11007",
+    "neo4j://localhost:7687",
     neo4j.auth.basic("neo4j", "1234")
 )
 
