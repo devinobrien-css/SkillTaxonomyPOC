@@ -68,7 +68,7 @@ export const SearchSelect = ({className,options,setSelected,...rest}) => {
                     setSearch(e.target.value)
                 }}
             />
-            <div className={`z-30 bg-white top-full absolute p-4 transition-all w-full overflow-y-scroll ${display?"h-72":"h-0 p-0"}`}>
+            <div className={`z-30 bg-white top-full absolute p-4 transition-all w-full overflow-y-scroll ${display?"h-48":"h-0 p-0"}`}>
                 {options
                 .filter(option => {
                     return option.includes(search)
@@ -98,10 +98,10 @@ export const Modal = ({children,className,display,setDisplay,...rest}) => {
 
 
     return (
-        <div {...rest} className={`z-50 absolute h-full w-full bg-gray-400 bg-opacity-70 shadow top-0 left-0 flex flex-col items-center transition-all duration-500  ${className} ${display?"scale-105":"scale-0 opacity-0"}`}>
+        <div {...rest} className={`z-50 absolute h-full w-full bg-gray-400 bg-opacity-70 shadow top-0 left-0 flex flex-col items-center transition-all duration-500 rounded ${className} ${display?"scale-100":"scale-0 opacity-0"}`}>
             <div className={`bg-white w-1/2 h-1/2 relative shadow-xl my-auto rounded transform transition-all duration-1000 cursor-pointer ${display?"scale-105":"scale-0"}`}>
-                <Icon icon={"mdi:alpha-x-box-outline"} className="absolute top-1 right-1" width={40} onClick={()=>setDisplay()}/>
-                {children}
+                <Icon icon={"mdi:alpha-x-box-outline"} className="absolute top-1 right-1 z-50" width={40} onClick={()=>setDisplay()}/>
+                {display?children:<></>}
             </div>
         </div>
     )

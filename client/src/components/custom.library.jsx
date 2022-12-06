@@ -22,8 +22,12 @@ export const SkillCardSm = ({skill,className,...rest}) => {
 }
 export const SkillCardMd = ({skill,className,...rest}) => {
     return (
-        <div className={`bg-white p-2 rounded my-2 cursor-pointer border ${className}`} {...rest}>
-            <p className="uppercase text-2xl text-font-dark hover:shadow-3xl shadow-gray-900">{skill.name}</p>
+        <div className={`bg-white p-2 rounded my-2 cursor-pointer group border shadow ${className}`} {...rest}>
+            <p className="uppercase text-2xl text-blue-400 hover:shadow-3xl shadow-gray-900 group-hover:font-bold transition-all">{skill.name}</p>
+            
+            <div className='border-l border-font-dark text-font-dark pl-2'>
+                <p>{skill.inCategory.length} parent categories</p>
+            </div>
         </div>
     )
 }
@@ -38,11 +42,13 @@ export const CategoryCardSm = ({category,className,...rest}) => {
 }
 export const CategoryCardMd = ({category,className,...rest}) => {
     return (
-        <div className={`bg-white p-2 rounded my-2 cursor-pointer ${className}`} {...rest}>
-            <p className="uppercase text-2xl text-font-dark hover:shadow-3xl shadow-gray-900">{category.name}</p>
-            <p>{category.parentCategories.length} parent categories</p>
-            <p>{category.childCategories.length} sub-categories </p>
-            <p>{category.childSkills.length} skills</p>
+        <div className={`bg-white p-2 rounded my-2 cursor-pointer group shadow ${className}`} {...rest}>
+            <p className="uppercase text-2xl text-blue-500 hover:shadow-3xl shadow-gray-900 group-hover:font-bold transition-all">{category.name}</p>
+            <div className='border-l border-font-dark text-font-dark pl-2'>
+                <p>{category.parentCategories.length} parent categories</p>
+                <p>{category.childCategories.length} sub-categories </p>
+                <p>{category.childSkills.length} skills</p>
+            </div>
         </div>
     )
 }

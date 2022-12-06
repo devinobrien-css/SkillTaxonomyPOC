@@ -27,3 +27,13 @@ export const AttachParentCategory = gql`
         }
     }
 `
+
+export const AddCategory = gql`
+    mutation CreateSkillCategories($input: [SkillCategoryCreateInput!]!) {
+        createSkillCategories(input: $input) {
+            skillCategories {
+                name
+            }
+        }
+    }
+`
