@@ -76,10 +76,10 @@ const typeDefs = gql`
         """
       )
 
-    getSkillTree: String! @cypher(
+    getSkillTree(rootName: String!): String! @cypher(
         statement: """
-        MATCH (n:SkillCategory {name: 'Front-End'})
-        CALL apoc.path.spanningTree(n, {})
+        MATCH (n:SkillCategory {name: $rootName})
+        CALL apoc.path.spanningTree(n, {relationshipFilter: '<SUB_CLASS_OF'})
         YIELD path
         WITH collect(path) as paths
         CALL apoc.convert.toTree(paths)
