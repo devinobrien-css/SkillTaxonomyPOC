@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client"
 import { useState } from "react"
 import { Icon } from '@iconify/react';
-import { GetCategories, GetCategoryCousins } from "../../apollo/categories.mjs"
+import { GetCategories, GetCategoryCousins, GetSkillTree } from "../../apollo/categories.mjs"
 import { Modal, SubTitle, TitleMd } from "../component.library"
 import { Addbutton, CategoryCardSm, SkillCardSm } from "../custom.library"
 import { AddChildModal } from "./addChildModal.component.jsx"
@@ -22,6 +22,8 @@ export const ExploreCategory = ({category}) => {
     const [removeParentCategory,setRemoveParentCategory] = useState()
     const [removeSkill,setRemoveSkill] = useState()
 
+    const {data:skillTree} = useQuery(GetSkillTree)
+    
     const {data,loading} = useQuery(GetCategories,{
         variables:{
             where:{
@@ -144,12 +146,12 @@ export const ExploreCategory = ({category}) => {
             <br/>
 
 
-            {/* <TitleMd>Users Attached</TitleMd>
+            <TitleMd>Users Attached</TitleMd>
             <SubTitle>All users with skills in this category</SubTitle>
             <br/>
 
             <TitleMd>Users in sub-categories</TitleMd>
-            <SubTitle>All users with skills related to this category</SubTitle> */}
+            <SubTitle>All users with skills related to this category</SubTitle>
         </>
     )
 }

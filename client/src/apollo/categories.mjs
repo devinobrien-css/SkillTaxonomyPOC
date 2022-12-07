@@ -56,3 +56,10 @@ export const RemoveChildCategory = gql`
         }
     }
 `
+
+
+export const GetSkillTree = gql`
+    query Query {
+        getSkillTree
+    }
+`

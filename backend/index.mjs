@@ -62,14 +62,6 @@ const typeDefs = gql`
         RETURN {name: k.name, type: labels(k)[0]}
     """)
 
-    getAllChildren(name: String!): [CategoryChild!]!
-      @cypher(
-        statement: """
-        MATCH (n:SkillCategory {name: $name})<-[:SUB_CLASS_OF*1..]-(k)
-        RETURN {name: k.name, type: labels(k)[0]}
-        """
-      )
-
     getDirectChildren(name: String!): [CategoryChild!]!
       @cypher(
         statement: """
