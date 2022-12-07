@@ -6,8 +6,6 @@ import { useMutation, useQuery } from "@apollo/client";
 import { AttachSkillParentCategory, GetSkills } from "../../apollo/skills.mjs";
 import { GetCategories } from "../../apollo/categories.mjs";
 
-
-
 export const AddCategoryModal = ({skill}) => {
     const [selectedCategory,setSelected] = useState()
     const {data} = useQuery(GetCategories)
@@ -41,8 +39,6 @@ export const AddCategoryModal = ({skill}) => {
             },   
             refetchQueries:[GetSkills,GetCategories]
         })
-
-        console.log(updateData)
     }
 
     return (

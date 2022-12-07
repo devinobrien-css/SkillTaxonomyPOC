@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { Modal, SubTitle, TitleMd } from "../component.library"
+import { Modal, SubTitle, TitleLg, TitleMd } from "../component.library"
 import { Addbutton, CategoryCardSm, SkillCardSm } from "../custom.library"
 import { useQuery } from "@apollo/client";
-import {  GetSkills, RemoveSkillParentCategory } from "../../apollo/skills.mjs";
+import {  GetSkillCousins, GetSkills } from "../../apollo/skills.mjs";
 import { GetCategories } from "../../apollo/categories.mjs";
 import { RemoveSkillModal } from "./removeSkillModal.component";
 import { AddCategoryModal } from "./addCategoryModal.component";
@@ -12,7 +12,6 @@ import { Icon } from '@iconify/react';
 export const ExploreSkill = ({skill}) => {
     const [addCategoryModal,setAddCategoryModal] = useState()
     const [removeParentModal,setRemoveParentModal] = useState()
-
 
     const {data:skillData,loading} = useQuery(GetSkills,{
         variables:{
@@ -47,6 +46,12 @@ export const ExploreSkill = ({skill}) => {
           }
     })
 
+    const {data:cousinSkills} = useQuery(GetSkillCousins,{
+        variables:{
+            skillName: skill?.name
+        }
+    })
+
     return (
         <>
             {loading?(
@@ -67,7 +72,7 @@ export const ExploreSkill = ({skill}) => {
                 <RemoveSkillModal skill={skillData?.skills[0]} category={removeParentModal} />
             </Modal>
 
-            <TitleMd>{skillData?.skills[0].name}</TitleMd>
+            <TitleLg>{skillData?.skills[0].name}</TitleLg>
             <br/>
             
             <span className="text-font-dark"></span>
@@ -101,15 +106,12 @@ export const ExploreSkill = ({skill}) => {
 
             <TitleMd>Cousin-Skills</TitleMd>
             <SubTitle>All skills related by grandparent to this skill</SubTitle>
+            <div className="flex [&>*]:my-auto [&>*]:mx-2 w-full overflow-x-scroll">
+                {cousinSkills?.getSkillCousins.map((skill,index) => {
+                    return <SkillCardSm skill={skill} key={index} />
+                })}
+            </div>
             <br/>
-
-
-            {/* <TitleMd>Users Attached</TitleMd>
-            <SubTitle>All users with this skill</SubTitle>
-            <br/>
-
-            <TitleMd>Users in sub-categories</TitleMd>
-            <SubTitle>All users with skills related to this skill</SubTitle> */}
         </>
     )
 }

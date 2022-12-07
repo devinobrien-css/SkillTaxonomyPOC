@@ -37,3 +37,22 @@ export const AddCategory = gql`
         }
     }
 `
+
+export const GetCategoryCousins = gql`
+    query GetCategoryCousins($categoryName: String!) {
+        getCategoryCousins(categoryName: $categoryName) {
+            name
+        }
+    }
+`
+
+
+export const RemoveChildCategory = gql`
+    mutation RemoveChildCategory($where: SkillCategoryWhere, $disconnect: SkillCategoryDisconnectInput) {
+        updateSkillCategories(where: $where, disconnect: $disconnect) {
+            skillCategories {
+                name
+            }
+        }
+    }
+`

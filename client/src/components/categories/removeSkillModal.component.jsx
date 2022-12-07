@@ -5,7 +5,7 @@ import {  GetSkills, RemoveSkillParentCategory } from "../../apollo/skills.mjs";
 import { GetCategories } from "../../apollo/categories.mjs";
 
 export const RemoveSkillModal = ({skill,category,setModal}) => {
-    const [removeParent, {data,loading}] = useMutation(RemoveSkillParentCategory,{
+    const [removeChild, {data,loading}] = useMutation(RemoveSkillParentCategory,{
         variables:{
             disconnect: {
                 inCategory: [
@@ -26,7 +26,7 @@ export const RemoveSkillModal = ({skill,category,setModal}) => {
     })
 
     const onSubmit = async() => {
-        await removeParent()
+        await removeChild()
     }
 
     return (

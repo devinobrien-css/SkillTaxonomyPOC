@@ -1,12 +1,14 @@
 import { useQuery } from "@apollo/client"
 import { useState } from "react"
 import { Icon } from '@iconify/react';
-import { GetCategories } from "../../apollo/categories.mjs"
+import { GetCategories, GetCategoryCousins } from "../../apollo/categories.mjs"
 import { Modal, SubTitle, TitleMd } from "../component.library"
 import { Addbutton, CategoryCardSm, SkillCardSm } from "../custom.library"
 import { AddChildModal } from "./addChildModal.component.jsx"
 import { AddParentModal } from "./addParentModal.component.jsx"
 import { AddSkillModal } from "./addSkillModal.component.jsx"
+import { RemoveChildModal } from "./removeChildModal.component.jsx";
+import { RemoveSkillModal } from "./removeSkillModal.component.jsx";
 
 /** Section for exploring a given category and its related nodes
  * @param {*} param0 
@@ -16,6 +18,9 @@ export const ExploreCategory = ({category}) => {
     const [addParent,setAddParent] = useState()
     const [addChild,setAddChild] = useState()
     const [addSkill,setAddSkill] = useState()
+    const [removeChildCategory,setRemoveChildCategory] = useState()
+    const [removeParentCategory,setRemoveParentCategory] = useState()
+    const [removeSkill,setRemoveSkill] = useState()
 
     const {data,loading} = useQuery(GetCategories,{
         variables:{
@@ -36,6 +41,12 @@ export const ExploreCategory = ({category}) => {
                 }
             }
           }
+    })
+
+    const {data:cousinCategories} = useQuery(GetCategoryCousins,{
+        variables:{
+            categoryName: category.name
+        }
     })
 
     return (
@@ -63,6 +74,24 @@ export const ExploreCategory = ({category}) => {
             >
                 <AddSkillModal category={data?.skillCategories[0]} />
             </Modal>
+            <Modal
+                display={removeChildCategory}
+                setDisplay={setRemoveChildCategory}
+            >
+                <RemoveChildModal child={removeChildCategory} category={data?.skillCategories[0]} setModal={setRemoveChildCategory}/>
+            </Modal>
+            <Modal
+                display={removeChildCategory}
+                setDisplay={setRemoveChildCategory}
+            >
+                <RemoveChildModal child={data?.skillCategories[0]} category={removeChildCategory} setModal={setRemoveChildCategory}/>
+            </Modal>
+            <Modal
+                display={removeSkill}
+                setDisplay={setRemoveSkill}
+            >
+                <RemoveSkillModal skill={removeSkill} category={data?.skillCategories[0]} setModal={setRemoveSkill}/>
+            </Modal>
             <TitleMd>{data?.skillCategories[0].name}</TitleMd>
             <br/>
 
@@ -81,7 +110,7 @@ export const ExploreCategory = ({category}) => {
             <div className="flex [&>*]:my-auto [&>*]:mx-2 w-full overflow-x-scroll">
                 <Addbutton onClick={() => setAddChild(true)} />
                 {data?.skillCategories[0].childCategories.map((category,index) => {
-                    return <CategoryCardSm category={category} key={index}/>
+                    return <CategoryCardSm category={category} key={index} onClick={()=> setRemoveChildCategory(category)}/>
                 })}
             </div>
             <br/>
@@ -91,7 +120,7 @@ export const ExploreCategory = ({category}) => {
             <div className="flex [&>*]:my-auto [&>*]:mx-2 w-full overflow-x-scroll">
                 <Addbutton onClick={() =>  setAddSkill(true)} />
                 {data?.skillCategories[0].childSkills.map((skill,index) => {
-                    return <SkillCardSm skill={skill} key={index}/>
+                    return <SkillCardSm skill={skill} key={index} onClick={()=> setRemoveSkill(skill)}/>
                 })}
             </div>
             <br/>
@@ -107,6 +136,11 @@ export const ExploreCategory = ({category}) => {
 
             <TitleMd>Cousin-Categories</TitleMd>
             <SubTitle>All categories related by grandparent to this category</SubTitle>
+            <div className="flex [&>*]:my-auto [&>*]:mx-2 w-full overflow-x-scroll">
+                {cousinCategories?.getCategoryCousins.map((category,index) => {
+                    return <CategoryCardSm category={category} key={index} />
+                })}
+            </div>
             <br/>
 
 

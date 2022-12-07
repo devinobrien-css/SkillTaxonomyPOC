@@ -1,21 +1,12 @@
 import { useState } from "react";
-import { ButtonMd, SubTitle, TitleLg, TitleMd } from "./components/component.library";
-import { Addbutton, CategoryCardMd, SkillCardMd } from "./components/custom.library";
+import { ButtonMd, TitleLg } from "./components/component.library";
+import { CategoryCardMd, SkillCardMd } from "./components/custom.library";
 import { ExploreCategory } from "./components/categories/exploreCategory.component";
 import { ExploreSkill } from "./components/skills/exploreSkill.component";
-import { tempCategoryData, tempSkillsData } from "./data";
 import { Icon } from '@iconify/react';
 import { useMutation, useQuery } from "@apollo/client";
 import { AddSkill, GetSkills } from "./apollo/skills.mjs";
 import { AddCategory, GetCategories } from "./apollo/categories.mjs";
-
-const Toast = ({flag}) => {
-  return (
-    <div>
-
-    </div>
-  )
-}
 
 const App = () => {
   const [navToggle,setNavToggle] = useState("categories")
@@ -36,19 +27,6 @@ const App = () => {
   const [addCategory,{data:newCategory,loading:newCategoryLoading}] = useMutation(AddCategory,{
     refetchQueries:[GetSkills,GetCategories]
   })
-
-  const Toast = () => {
-    setTimeout(() => {
-      setToastStatus()
-      setToastMessage()
-    },1200)
-
-    return (
-      <div className={`absolute w-full flex flex-col items-center overflow-hidden transition-all transform border ${toastStatus?"h-full":"h-0"}`}>
-        <p className="bg-gray-600 p-4 text-white rounded shadow">{toastMessage}</p>
-      </div>
-    )
-  }
 
   const onAddSkill = async() => {
       if(newNodeName){
@@ -79,10 +57,19 @@ const App = () => {
     }
   }
 
+  if(toastStatus){
+    setTimeout(() => {
+      setToastStatus()
+      setToastMessage()
+    },1000)
+  }
+
 
   return (
     <div className="bg-bg_lightgray h-screen relative">
-      <Toast />
+      <div className={`absolute w-full border transition-all duration-1000 overflow-hidden flex flex-col items-center ${toastStatus?"h-full p-4":"h-0 p-0"}`}>
+        <p className={`flex bg-gray-600 p-4 text-white rounded shadow transition-all`}>{toastMessage} <Icon icon={"ic:round-check-circle"} className="my-auto"/></p>
+      </div>
       <div className="p-4">
         <TitleLg><span className="flex">Skill Taxonomy Example (the skill family tree <Icon icon={"noto:deciduous-tree"} />)</span></TitleLg>
 
@@ -123,6 +110,8 @@ const App = () => {
                     }
                     else{
                       onAddCategory()
+                      setToastMessage("New Category Added")
+                      setToastStatus(true)
                     }
                     setNewNode("")
                 }}  

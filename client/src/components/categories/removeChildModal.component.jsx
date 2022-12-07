@@ -1,32 +1,32 @@
 import { ButtonMd, SubTitle, TitleMd } from "../component.library"
 import { Icon } from '@iconify/react';
 import { useMutation } from "@apollo/client";
-import {  GetSkills, RemoveSkillParentCategory } from "../../apollo/skills.mjs";
-import { GetCategories } from "../../apollo/categories.mjs";
+import {  GetSkills } from "../../apollo/skills.mjs";
+import { GetCategories, RemoveChildCategory } from "../../apollo/categories.mjs";
 
-export const RemoveSkillModal = ({skill,category,setModal}) => {
-    const [removeParent, {data,loading}] = useMutation(RemoveSkillParentCategory,{
+export const RemoveChildModal = ({child,category,setModal}) => {
+    const [removeChild, {data,loading}] = useMutation(RemoveChildCategory,{
         variables:{
+            where: {
+                name: category?.name
+            },
             disconnect: {
-                inCategory: [
+                childCategories: [
                     {
                         where: {
                             node: {
-                                name: category?.name
+                                name: child?.name
                             }
                         }
                     }
                 ]
-            },
-            where: {
-                name: skill?.name
             }
-        },
+          },
         refetchQueries:[GetSkills,GetCategories]
     })
 
     const onSubmit = async() => {
-        await removeParent()
+        await removeChild()
     }
 
     return (
@@ -39,7 +39,7 @@ export const RemoveSkillModal = ({skill,category,setModal}) => {
             {data?(
                 <div className="bg-white absolute h-full w-full z-40 top-0 left-0 flex flex-col items-center">
                     <div className={"my-auto"}>
-                        <TitleMd className={"text-center"}>Skill removed from Parent</TitleMd>
+                        <TitleMd className={"text-center"}>Child removed from Parent</TitleMd>
                         <SubTitle className={"text-center"}>You can now close this window</SubTitle>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ export const RemoveSkillModal = ({skill,category,setModal}) => {
 
             <div className="h-full py-16 w-full flex flex-col items-center top-0 left-0">
                 <div className="my-auto">
-                    <TitleMd>Disconnect <span className="font-bold italic text-font-dark">{skill?.name}</span> from <span className="font-bold italic text-font-dark">{category?.name}</span>?</TitleMd>
+                    <TitleMd>Disconnect <span className="font-bold italic text-font-dark">{child?.name}</span> from <span className="font-bold italic text-font-dark">{category?.name}</span>?</TitleMd>
                     
                     <br/>
                     <div className="flex justify-evenly">

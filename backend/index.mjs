@@ -41,6 +41,13 @@ const typeDefs = gql`
             RETURN k
         """)
 
+        getCategoryCousins(categoryName: String!): [SkillCategory!]! @cypher(statement: """
+            OPTIONAL MATCH (n:SkillCategory {name: $categoryName})-[:SUB_CLASS_OF*2]->(p:SkillCategory)
+            MATCH (p)<-[:SUB_CLASS_OF]-(k:SkillCategory)
+            WHERE k.name <> $categoryName
+            RETURN k
+        """)
+
         getAllChildren(name: String!): [CategoryChild!]! @cypher(statement: """
             MATCH (n:SkillCategory {name: $name})<-[:SUB_CLASS_OF*1..]-(k)   
             RETURN {name: k.name, type: labels(k)[0]}
@@ -72,7 +79,7 @@ const typeDefs = gql`
 `
 
 const driver = neo4j.driver(
-    "neo4j://localhost:7687",
+    "bolt://localhost:11007",
     neo4j.auth.basic("neo4j", "1234")
 )
 

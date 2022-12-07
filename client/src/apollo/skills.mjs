@@ -44,3 +44,11 @@ export const AddSkill = gql`
         }
     }
 `
+
+export const GetSkillCousins = gql`
+    query Query($skillName: String!) {
+        getSkillCousins(skillName: $skillName) {
+            name
+        }
+    }
+`
