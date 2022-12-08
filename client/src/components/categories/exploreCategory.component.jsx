@@ -145,7 +145,6 @@ export const ExploreCategory = ({category}) => {
             </div>
             <br/>
 
-
             <TitleMd>Users Attached</TitleMd>
             <SubTitle>All users with skills in this category</SubTitle>
             <br/>

@@ -43,6 +43,13 @@ export const ButtonMd = ({children,className,color,...rest}) => {
     )
 }
 
+export const NumericalInput = ({children,className,...rest}) => {
+
+    return (
+        <input className={`border rounded p-2 border-borders ${className}`} {...rest} type="number"/>
+    )
+}
+
 export const SearchSelect = ({className,options,setSelected,...rest}) => {
     const [search,setSearch] = useState("")
     const [display,setDisplay] = useState("")
