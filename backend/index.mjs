@@ -29,6 +29,11 @@ const typeDefs = gql`
     type: String
   }
 
+  type UserWithSkills {
+    name: String
+    percentKnown: Float
+  }
+
   type Query {
     getSkillSiblings(skillName: String!): [Skill!]!
       @cypher(
@@ -91,6 +96,18 @@ const typeDefs = gql`
         RETURN apoc.convert.toJson(value)
         """
     )
+
+    getUsersWithSkills(skillList: [String!]!, min: Int = 0, topK: Int = 5): [UserWithSkills!]! @cypher(
+      statement: """
+      MATCH (n:User)-[:HAS_SKILL]->(s:Skill)
+      WHERE s.name in $skillList
+      WITH n, count(s) as known, toFloat(count(s))/size($skillList) as percentKnown
+      WHERE known >= $min
+      RETURN {name: n.name, percentKnown: percentKnown}
+      ORDER BY percentKnown DESC
+      LIMIT $topK
+      """
+    )
   }
 
   type Mutation {
@@ -110,7 +127,7 @@ const typeDefs = gql`
 
 const driver = neo4j.driver(
 
-    "bolt://localhost:11007",
+    "neo4j://localhost:7687",
     neo4j.auth.basic("neo4j", "1234")
 )
 
