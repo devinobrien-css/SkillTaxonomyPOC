@@ -15,6 +15,11 @@ const typeDefs = gql`
     knownBy: [User!]! @relationship(type: "HAS_SKILL", direction: IN)
   }
 
+  type User {
+    name: String
+    hasSkill: [Skill!]! @relationship(type: "HAS_SKILL", direction: OUT)
+  }
+
   type SkillCategory {
     name: String
     childSkills: [Skill!]! @relationship(type: "SUB_CLASS_OF", direction: IN)
