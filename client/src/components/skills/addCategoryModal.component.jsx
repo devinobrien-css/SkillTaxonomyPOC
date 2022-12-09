@@ -16,7 +16,8 @@ export const AddCategoryModal = ({skill}) => {
             }
         }
     })
-
+    
+    console.log(skillData)
     const [attachParent,{data:updateData,loading}] = useMutation(AttachSkillParentCategory)
 
     const onSubmit = async() => {
@@ -64,7 +65,7 @@ export const AddCategoryModal = ({skill}) => {
             <br/>
             <TitleSm>Select a Category</TitleSm>
             <SearchSelect 
-                options={data?.skillCategories.map(category => {return category.name})}
+                options={data?.skillCategories.filter(category =>  !skillData?.skills[0].inCategory.filter(skillCat => category.name === skillCat.name).length).map(category => {return category.name})}
                 setSelected={setSelected}
             />
             <br/>
