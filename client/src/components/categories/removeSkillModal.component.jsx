@@ -45,7 +45,6 @@ export const RemoveSkillModal = ({skill,category,setModal}) => {
                 </div>
             ):(<></>)}
 
-
             <div className="h-full py-16 w-full flex flex-col items-center top-0 left-0">
                 <div className="my-auto">
                     <TitleMd>Disconnect <span className="font-bold italic text-font-dark">{skill?.name}</span> from <span className="font-bold italic text-font-dark">{category?.name}</span>?</TitleMd>

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Modal, SubTitle, TitleLg, TitleMd } from "../component.library"
-import { Addbutton, CategoryCardSm, SkillCardSm } from "../custom.library"
+import { Addbutton, CategoryCardSm, SkillCardSm, UserCardSm } from "../custom.library"
 import { useQuery } from "@apollo/client";
 import {  GetSkillCousins, GetSkills } from "../../apollo/skills.mjs";
 import { GetCategories } from "../../apollo/categories.mjs";
@@ -112,6 +112,14 @@ export const ExploreSkill = ({skill}) => {
                 })}
             </div>
             <br/>
+
+            <TitleMd>Users Attached</TitleMd>
+            <SubTitle>All users connected to this skill</SubTitle>
+            <div className="flex flex-wrap w-full overflow-x-scroll">
+                {skillData?.skills[0]?.knownBy.map((user,index) => {
+                    return <UserCardSm key={index} user={user} className="m-2"/>
+                })}
+            </div>
         </>
     )
 }

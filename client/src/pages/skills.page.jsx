@@ -63,7 +63,7 @@ export const Skills = () => {
 
             </div>
 
-            <div className="p-4 w-4/6 rounded bg-white shadow relative">
+            <div className="p-4 w-4/6 rounded bg-white shadow relative h-[80vh] overflow-scroll">
                 {selected?(
                     <ExploreSkill skill={selected} />
                 ):(

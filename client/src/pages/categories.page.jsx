@@ -65,7 +65,7 @@ export const Categories = () => {
 
             </div>
 
-            <div className="p-4 w-4/6 rounded bg-white shadow relative">
+            <div className="p-4 w-4/6 rounded bg-white shadow relative h-[80vh] overflow-scroll">
                 {selected?(
                     <ExploreCategory category={selected}/>
                 ):(<TitleLg className="my-48 text-center">Select from the categories</TitleLg>)}

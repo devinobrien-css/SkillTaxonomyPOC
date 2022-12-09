@@ -54,7 +54,13 @@ export const AddSkillModal = ({category}) => {
             <br/>
             <TitleSm>Select a Skill</TitleSm>
             <SearchSelect 
-                options={skillData?.skills.map(category => {return category.name})}
+                options={
+                    skillData?.skills
+                    .filter(skill => {
+                        return !category.childSkills.filter(childSkill => childSkill.name === skill.name).length
+                    })
+                    .map(category => {return category.name})
+                }
                 setSelected={setSelected}
             />
 
@@ -82,10 +88,7 @@ export const AddSkillModal = ({category}) => {
                         </ButtonMd>
                     </div>
                 </>
-            ):(
-                <>
-                </>
-            )}  
+            ):(<></>)}  
         </div>
     )
 }

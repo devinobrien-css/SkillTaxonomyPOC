@@ -54,7 +54,7 @@ export const AddChildModal = ({category}) => {
             <br/>
             <TitleSm>Select a Category</TitleSm>
             <SearchSelect 
-                options={categoryData?.skillCategories.map(category => {return category.name})}
+                options={categoryData?.skillCategories.filter(skillCategory => skillCategory.name !== category.name).map(category => {return category.name})}
                 setSelected={setSelected}
             />
 

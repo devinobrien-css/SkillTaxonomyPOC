@@ -19,7 +19,6 @@ export const ExploreCategory = ({category}) => {
     const [addChild,setAddChild] = useState()
     const [addSkill,setAddSkill] = useState()
     const [removeChildCategory,setRemoveChildCategory] = useState()
-    const [removeParentCategory,setRemoveParentCategory] = useState()
     const [removeSkill,setRemoveSkill] = useState()
 
     const {data:skillTree} = useQuery(GetSkillTree)
@@ -107,7 +106,7 @@ export const ExploreCategory = ({category}) => {
             </div>
             <br/>
 
-            <TitleMd>Sub-Categories <span className="text-font-dark">{data?.skillCategories[0].childCategories.length}</span></TitleMd>
+            <TitleMd>Child Categories <span className="text-font-dark">{data?.skillCategories[0].childCategories.length}</span></TitleMd>
             <SubTitle>All decendants of this category</SubTitle>
             <div className="flex [&>*]:my-auto [&>*]:mx-2 w-full overflow-x-scroll">
                 <Addbutton onClick={() => setAddChild(true)} />
@@ -127,8 +126,8 @@ export const ExploreCategory = ({category}) => {
             </div>
             <br/>
 
-            <TitleMd>Sibling-Categories</TitleMd>
-            <SubTitle>All categories related by parent to this category</SubTitle>
+            <TitleMd>Sibling Categories</TitleMd>
+            <SubTitle>All categories related by parent to this category.<br/> These categories share a high relation amongst eachother</SubTitle>
             <div className="flex [&>*]:my-auto [&>*]:mx-2 w-full overflow-x-scroll">
                 {siblingCategories?.skillCategories.map((category,index) => {
                     return <CategoryCardSm category={category} key={index} />
@@ -137,7 +136,7 @@ export const ExploreCategory = ({category}) => {
             <br/>
 
             <TitleMd>Cousin-Categories</TitleMd>
-            <SubTitle>All categories related by grandparent to this category</SubTitle>
+            <SubTitle>All categories related by grandparent to this category. <br/>These categories share only a partial relationship</SubTitle>
             <div className="flex [&>*]:my-auto [&>*]:mx-2 w-full overflow-x-scroll">
                 {cousinCategories?.getCategoryCousins.map((category,index) => {
                     return <CategoryCardSm category={category} key={index} />
@@ -148,9 +147,7 @@ export const ExploreCategory = ({category}) => {
             <TitleMd>Users Attached</TitleMd>
             <SubTitle>All users with skills in this category</SubTitle>
             <br/>
-
-            <TitleMd>Users in sub-categories</TitleMd>
-            <SubTitle>All users with skills related to this category</SubTitle>
+            
         </>
     )
 }

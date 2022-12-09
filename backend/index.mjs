@@ -15,11 +15,6 @@ const typeDefs = gql`
     knownBy: [User!]! @relationship(type: "HAS_SKILL", direction: IN)
   }
 
-  type User {
-    name: String
-    hasSkill: [Skill!]! @relationship(type: "HAS_SKILL", direction: OUT)
-  }
-
   type SkillCategory {
     name: String
     childSkills: [Skill!]! @relationship(type: "SUB_CLASS_OF", direction: IN)
@@ -36,6 +31,7 @@ const typeDefs = gql`
 
   type UserWithSkills {
     name: String
+    skills: [String]
     percentKnown: Float
   }
 
@@ -106,9 +102,9 @@ const typeDefs = gql`
       statement: """
       MATCH (n:User)-[:HAS_SKILL]->(s:Skill)
       WHERE s.name in $skillList
-      WITH n, count(s) as known, toFloat(count(s))/size($skillList) as percentKnown
-      WHERE known >= $min
-      RETURN {name: n.name, percentKnown: percentKnown}
+      WITH n, collect(s.name) as skillSet, count(s) as known, toFloat(count(s))/size($skillList) as percentKnown
+      WHERE known >= $min 
+      RETURN {name: n.name, percentKnown: percentKnown, skills:skillSet}
       ORDER BY percentKnown DESC
       LIMIT $topK
       """
@@ -131,16 +127,13 @@ const typeDefs = gql`
 `;
 
 const driver = neo4j.driver(
-
     "neo4j://localhost:7687",
     neo4j.auth.basic("neo4j", "1234")
 )
 
 const neoSchema = new Neo4jGraphQL({ typeDefs, driver });
-
 neoSchema.getSchema().then((schema) => {
   const server = new ApolloServer({ schema });
-
   server.listen().then(({ url }) => {
     console.log(`Server ready at ${url}`);
   });

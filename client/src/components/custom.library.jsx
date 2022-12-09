@@ -1,6 +1,4 @@
-
 import { Icon } from '@iconify/react';
-
 
 export const Addbutton = ({children,...rest}) => {
 
@@ -12,7 +10,6 @@ export const Addbutton = ({children,...rest}) => {
     )
 }
 
-
 export const SkillCardSm = ({skill,className,...rest}) => {
     return (
         <div className={`bg-white p-2 rounded my-2 cursor-pointer border transform transition-all hover:scale-105 ${className}`} {...rest}>
@@ -20,6 +17,7 @@ export const SkillCardSm = ({skill,className,...rest}) => {
         </div>
     )
 }
+
 export const SkillCardMd = ({skill,className,...rest}) => {
     return (
         <div className={`bg-white p-2 rounded my-2 cursor-pointer group border shadow ${className}`} {...rest}>
@@ -27,11 +25,11 @@ export const SkillCardMd = ({skill,className,...rest}) => {
             
             <div className='border-l border-font-dark text-font-dark pl-2'>
                 <p>{skill.inCategory.length} parent categories</p>
+                <p>{skill.knownBy?.length} users attached</p>
             </div>
         </div>
     )
 }
-
 
 export const CategoryCardSm = ({category,className,...rest}) => {
     return (
@@ -40,6 +38,7 @@ export const CategoryCardSm = ({category,className,...rest}) => {
         </div>
     )
 }
+
 export const CategoryCardMd = ({category,className,...rest}) => {
     return (
         <div className={`bg-white p-2 rounded my-2 cursor-pointer group shadow ${className}`} {...rest}>
@@ -49,6 +48,14 @@ export const CategoryCardMd = ({category,className,...rest}) => {
                 <p>{category.childCategories.length} sub-categories </p>
                 <p>{category.childSkills.length} skills</p>
             </div>
+        </div>
+    )
+}
+
+export const UserCardSm = ({user,className,...rest}) => {
+    return (
+        <div className={`bg-white p-2 rounded my-2 cursor-pointer border transform transition-all hover:scale-105 ${className}`} {...rest}>
+            <p className="uppercase text-sm text-font-dark hover:shadow-3xl shadow-gray-900">{user.name}</p>
         </div>
     )
 }
