@@ -50,7 +50,7 @@ const typeDefs = gql`
       @cypher(
         statement: """
         OPTIONAL MATCH (n:Skill {name: $skillName})-[:SUB_CLASS_OF*2]->(p:SkillCategory)
-        MATCH (p)<-[:SUB_CLASS_OF]-(k:Skill)
+        MATCH (p)<-[:SUB_CLASS_OF*2]-(k:Skill)
         WHERE k.name <> $skillName
         RETURN k
         """
