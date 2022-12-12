@@ -105,7 +105,7 @@ export const AssignUsers = ({selected,setSelected}) => {
                                         <p className="w-1/3 font-light text-xl">{user.name}</p>
                                         <div className="flex flex-wrap w-1/3 border-r-2 border-l-2">
                                             {user.skills.map(skill => {
-                                                return <p className="border border-borders p-1 rounded mx-auto">{skill}</p>
+                                                return <p className="border border-borders p-1 rounded mx-auto my-2">{skill}</p>
                                             })}
                                         </div>
                                         <p className={`w-1/3 text-right ${assignTextColor(Math.floor(user.percentKnown*100))}`}>{Math.floor(user.percentKnown*100)}% Qualified</p>
