@@ -1,4 +1,10 @@
-To start the backend, do the following:
-    1) start a local Neo4j database
-    2) use apoc.import.json() to import skills.json (can be found in the /database folder of this repo)
-    3) run 'npm start'
+# SkillTaxonomyPOC - Server
+
+## Description
+The following repo contains a server connecting to a local instance of Neo4J 
+
+## Local Set-up 
+
+### Install Neo4J Desktop 
+
+If you haven't previously installed this software, a download (can be found here)[https://neo4j.com/download/]

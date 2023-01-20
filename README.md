@@ -1,5 +1,9 @@
 # Skill Taxonomy Example
 
-The following project is broken into the UI `/client` and database `/server`
+## Description
 
-A local instance of a neo4j database must be running on your machine prior to running this application
+This application demonstrates the functionality of implementing a skill taxonomy to track the qualification level of employees based off of their skillsets. The project is broken into the UI `/client` and database `/server`. 
+
+## Local Set up
+
+Follow the instructions in `/server/README.md`, then launch the UI by following `/client/README.md`
