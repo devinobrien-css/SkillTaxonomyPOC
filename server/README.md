@@ -23,15 +23,17 @@ Name the DBMS, give it password of `1234`, and ensure the selected version is 4.
 
 <img width="836" alt="Screenshot 2023-01-20 at 11 42 32 AM" src="https://user-images.githubusercontent.com/61803565/213755771-9102452d-7d04-405f-aadb-73aa0c0a4bda.png">
 
-Next, change the permissions to allow unauthorized access to the database
+Next, change the permissions to allow unauthorized access to the database. In the configuration folder, open `neo4j.conf` and alter the following attribute: `dbms.security.auth_enabled=false`
 
 <img width="832" alt="Screenshot 2023-01-20 at 11 57 01 AM" src="https://user-images.githubusercontent.com/61803565/213757699-a8e378af-df15-44ea-b27c-c3c65de3e4ca.png">
 
-In the configuration folder, open `neo4j.conf` and alter the following attribute: `dbms.security.auth_enabled=false`
+Then, import the dataset by opening the DBMS folder and replacing the directory `/data` with the directory in this repo, `/server/data`
 
 
 <img width="657" alt="Screenshot 2023-01-20 at 11 47 48 AM" src="https://user-images.githubusercontent.com/61803565/213755703-b3e91eba-d5a4-4e17-a268-8ff1dddfc6ca.png">
 
+Now, restart your database and launch in Neo4J Browser. Run the query `MATCH(n) RETURN (n)`; if nodes return, you've successfully set up the DBMS. Now, ensure on the right menu on Neo4J desktop, the port specified is 7687
 
+### Launch Apollo Server
 
-dbms.security.auth_enabled=false
+Start the local instance of this server by running `npm start`
