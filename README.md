@@ -6,4 +6,4 @@ This application demonstrates the functionality of implementing a skill taxonomy
 
 ## Local Set up
 
-Follow the instructions in `/server/README.md`, then launch the UI by following `/client/README.md`
+Follow the instructions to launch the server in `/server/README.md`, then launch the UI by following `/client/README.md`
