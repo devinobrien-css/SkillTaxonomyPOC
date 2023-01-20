@@ -31,7 +31,8 @@ Then, import the dataset by opening the DBMS folder and replacing the directory 
 
 <img width="657" alt="Screenshot 2023-01-20 at 11 47 48 AM" src="https://user-images.githubusercontent.com/61803565/213755703-b3e91eba-d5a4-4e17-a268-8ff1dddfc6ca.png">
 
-Lastly, we should first install the 
+Lastly, we should install the APOC library, a required dependency
+
 <img width="410" alt="Screenshot 2023-01-20 at 12 11 27 PM" src="https://user-images.githubusercontent.com/61803565/213762234-5d84245f-d842-441d-aa62-3e721a197239.png">
 
 Now, restart your database. The following warning will be prompted- this is because we reduced authentication in the previous step. Click `Continue Anyway`
