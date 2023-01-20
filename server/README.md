@@ -29,10 +29,17 @@ Next, change the permissions to allow unauthorized access to the database. In th
 
 Then, import the dataset by opening the DBMS folder and replacing the directory `/data` with the directory in this repo, `/server/data`
 
-
 <img width="657" alt="Screenshot 2023-01-20 at 11 47 48 AM" src="https://user-images.githubusercontent.com/61803565/213755703-b3e91eba-d5a4-4e17-a268-8ff1dddfc6ca.png">
 
-Now, restart your database and launch in Neo4J Browser. Run the query `MATCH(n) RETURN (n)`; if nodes return, you've successfully set up the DBMS. Now, ensure on the right menu on Neo4J desktop, the port specified is 7687
+Lastly, we should first install the 
+<img width="410" alt="Screenshot 2023-01-20 at 12 11 27 PM" src="https://user-images.githubusercontent.com/61803565/213762234-5d84245f-d842-441d-aa62-3e721a197239.png">
+
+Now, restart your database. The following warning will be prompted- this is because we reduced authentication in the previous step. Click `Continue Anyway`
+
+<img width="905" alt="Screenshot 2023-01-20 at 12 13 37 PM" src="https://user-images.githubusercontent.com/61803565/213762016-f2e3d1b2-69b3-4a9c-8dc5-32a78fc06139.png">
+
+
+Run the query `MATCH(n) RETURN (n)`; if nodes return, you've successfully set up the DBMS. Now, ensure on the right menu on Neo4J desktop, the port specified is 7687
 
 ### Launch Apollo Server
 
